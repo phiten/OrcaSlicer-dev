@@ -5833,13 +5833,13 @@ bool DeviceManager::load_filaments_blacklist_config()
 void DeviceManager::check_filaments_in_blacklist(std::string tag_vendor, std::string tag_type, bool& in_blacklist, std::string& ac, std::string& info)
 {
 
-        std::unordered_map<std::string, wxString> blacklist_prompt blacklist_prompt =
-        {
-            {"TPU: not supported", _L("TPU is flexible and might get stuck inside AMS.")},
-            {"Bambu PET-CF/PA6-CF: not supported",  _L("Bambu PET-CF/PA6-CF is not supported by AMS.")},
-            {"PVA: flexible", _L("Damp PVA will become flexible and get stuck inside AMS,please take care to dry it before use.")}, 
-            {"CF/GF: hard and brittle", _L("CF/GF filaments are hard and brittle, It's easy to break or get stuck in AMS, please use with caution.")}
-    	};
+    std::unordered_map<std::string, wxString> blacklist_prompt blacklist_prompt =
+    {
+        {"TPU: not supported", _L("TPU is flexible and might get stuck inside AMS.")},
+        {"Bambu PET-CF/PA6-CF: not supported",  _L("Bambu PET-CF/PA6-CF is not supported by AMS.")},
+        {"PVA: flexible", _L("Damp PVA will become flexible and get stuck inside AMS,please take care to dry it before use.")}, 
+        {"CF/GF: hard and brittle", _L("CF/GF filaments are hard and brittle, It's easy to break or get stuck in AMS, please use with caution.")}
+    };
 
     in_blacklist = false;
 
