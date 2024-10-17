@@ -5832,13 +5832,27 @@ bool DeviceManager::load_filaments_blacklist_config()
 
 void DeviceManager::check_filaments_in_blacklist(std::string tag_vendor, std::string tag_type, bool& in_blacklist, std::string& ac, std::string& info)
 {
-    std::unordered_map<std::string, wxString> blacklist_prompt =
-    {
-        {"TPU: not supported", _L("TPU is not supported by AMS.")},
-        {"Bambu PET-CF/PA6-CF: not supported",  _L("Bambu PET-CF/PA6-CF is not supported by AMS.")},
-        {"PVA: flexible", _L("Damp PVA will become flexible and get stuck inside AMS,please take care to dry it before use.")}, 
-        {"CF/GF: hard and brittle", _L("CF/GF filaments are hard and brittle, It's easy to break or get stuck in AMS, please use with caution.")}
-    };
+
+    if (wxGetApp().app_config->get("skip_ams_blacklist_check") == "true") {
+
+        std::unordered_map<std::string, wxString> blacklist_prompt =
+        {
+            {"TPU: not supported", _L("TPU is flexible and might get stuck inside AMS.")},
+            {"Bambu PET-CF/PA6-CF: not supported",  _L("Bambu PET-CF/PA6-CF is not supported by AMS.")},
+            {"PVA: flexible", _L("Damp PVA will become flexible and get stuck inside AMS,please take care to dry it before use.")}, 
+            {"CF/GF: hard and brittle", _L("CF/GF filaments are hard and brittle, It's easy to break or get stuck in AMS, please use with caution.")}
+    	};
+    }
+    else {
+
+        std::unordered_map<std::string, wxString> blacklist_prompt =
+        {
+            {"TPU: not supported", _L("TPU is not supported by AMS.")},
+            {"Bambu PET-CF/PA6-CF: not supported",  _L("Bambu PET-CF/PA6-CF is not supported by AMS.")},
+            {"PVA: flexible", _L("Damp PVA will become flexible and get stuck inside AMS,please take care to dry it before use.")}, 
+            {"CF/GF: hard and brittle", _L("CF/GF filaments are hard and brittle, It's easy to break or get stuck in AMS, please use with caution.")}
+        };
+    }
 
     in_blacklist = false;
 
@@ -5857,7 +5871,15 @@ void DeviceManager::check_filaments_in_blacklist(std::string tag_vendor, std::st
             {
                 vendor = prohibited_filament["vendor"].get<std::string>();
                 type = prohibited_filament["type"].get<std::string>();
-                action = prohibited_filament["action"].get<std::string>();
+
+		if (wxGetApp().app_config->get("skip_ams_blacklist_check") == "true") {
+
+		    action = "warning";
+		}
+                else {
+
+		    action = prohibited_filament["action"].get<std::string>();
+		}
                 description = prohibited_filament["description"].get<std::string>();
 
                 description = blacklist_prompt[description].ToUTF8().data();
