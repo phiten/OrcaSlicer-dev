@@ -5859,7 +5859,7 @@ void DeviceManager::check_filaments_in_blacklist(std::string tag_vendor, std::st
                 vendor = prohibited_filament["vendor"].get<std::string>();
                 type = prohibited_filament["type"].get<std::string>();
 
-		if (wxGetApp().app_config->get("skip_ams_blacklist_check") == "true") {
+		if (GUI::wxGetApp().app_config->get("skip_ams_blacklist_check") == "true") {
 
 		    action = "warning";
 		}
