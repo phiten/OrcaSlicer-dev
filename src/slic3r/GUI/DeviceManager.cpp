@@ -5833,7 +5833,7 @@ bool DeviceManager::load_filaments_blacklist_config()
 void DeviceManager::check_filaments_in_blacklist(std::string tag_vendor, std::string tag_type, bool& in_blacklist, std::string& ac, std::string& info)
 {
 
-    std::unordered_map<std::string, wxString> blacklist_prompt blacklist_prompt =
+    std::unordered_map<std::string, wxString> blacklist_prompt =
     {
         {"TPU: not supported", _L("TPU is flexible and might get stuck inside AMS.")},
         {"Bambu PET-CF/PA6-CF: not supported",  _L("Bambu PET-CF/PA6-CF is not supported by AMS.")},
